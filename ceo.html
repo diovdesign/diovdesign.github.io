@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>diov design studio - 명함</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap');
+
+    :root{
+      --page-bg: #f8f7f3;
+      --card-bg: #e6e2da;
+      --ink: #111;
+      --ink-sub: #333;
+      --max-card-w: 820px;   /* 데스크톱 최대 폭 */
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      background: var(--page-bg);
+      font-family: 'Noto Sans KR', Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      color: var(--ink);
+    }
+
+    /* 기본(데스크톱/태블릿) */
+    .card{
+      position: relative;
+      width: min(92vw, var(--max-card-w));
+      aspect-ratio: 82 / 52;         /* 820x520 비율 유지 */
+      background: var(--card-bg);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .info-line{
+      display: flex;
+      align-items: center;            /* 아이콘/텍스트 세로 중앙 정렬 */
+      gap: 6px;
+      margin-top: 4px;
+      line-height: 1.6;
+      color: var(--ink-sub);
+      white-space: nowrap;
+    }
+    .icon{
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* 데스크톱 포지셔닝: 기존 좌표계 유사하게 %로 배치 */
+    .left-top{
+      position: absolute;
+      top: 5%;
+      left: 4%;
+      font-size: 14px;
+      color: #333;
+    }
+    .studio{
+      position: absolute;
+      top: 47%;
+      left: 4%;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .studio span{
+      display: block;
+      font-size: 12px;
+      color: #555;
+      margin-top: 4px;
+    }
+    .ceo{
+      position: absolute;
+      top: 5%;
+      right: 4%;
+      font-size: 14px;
+      color: var(--ink);
+      text-align: right;
+      line-height: 1.6;
+    }
+    .ceo b{ font-weight: 650; }
+
+    .bottom{
+      position: absolute;
+      bottom: 5%;
+      left: 3%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-img{
+      width: 110px;
+      height: auto;
+    }
+    .desc{
+      font-size: 9px;
+      color: var(--ink-sub);
+      max-width: 420px;
+      line-height: 1.5;
+    }
+
+    .bottom-right{
+      position: absolute;
+      bottom: 5%;
+      right: 4%;
+      font-size: 27px;
+      font-weight: 400;
+      color: var(--ink);
+      text-align: right;
+      line-height: 1;
+    }
+    .bottom-right .thin{ font-weight: 300; }
+
+    .link{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;     /* 밑줄 제거 */
+      color: inherit;            /* 부모 색상 그대로 상속 */
+    }
+    .link:visited,
+    .link:hover,
+    .link:active
+    .link:focus{
+      text-decoration: none;
+      color: inherit;
+    }  
+
+    /* =========================
+       아이폰 16 Pro 세로 전용
+       (CSS 픽셀 폭 393px 대상, 여유를 두고 420px 이하로 지정)
+       ========================= */
+    @media (max-width: 420px){
+        body{
+      margin: 0;
+      background: #e6e2da;
+      font-family: 'Noto Sans KR', Arial, sans-serif;
+      color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card{
+      width: 100%;
+      height: 100%;
+      padding: 0px 0px;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      grid-template-areas:
+        "bottom"
+        "contacts"
+        "ceo"
+        "footer";
+      position: relative;
+      border: none;
+    }
+
+    /* 공통 */
+    .info-line{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+    .icon{ width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* 상단 브랜드 */
+    .bottom{
+      position: relative;
+      left: 0px;
+      top: 5px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin: 12px;
+    }
+    .logo-img{ width: 65px; height: auto; }
+    .desc{
+      font-size: 8px;
+      line-height: 1.35;
+      max-width: 75vw;
+      color: #333;
+    }
+
+    /* 연락처 */
+    .left-top{
+      grid-area: contacts;
+      margin-bottom: 20px;
+    }
+
+    /* 중앙 ceo */
+    .ceo{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 14px;
+      line-height: 1.8;
+      white-space: nowrap;
+    }
+    .ceo b{ font-weight: 650;}
+
+    /* 하단 */
+    .footer{
+      grid-area: footer;
+      display: flex;
+      justify-content: space-between;  /* 좌측-우측 맞춤 */
+      align-items: flex-end;
+      width: 100%;
+    }
+
+    /* 디오브디자인스튜디오 */
+    .studio{
+      margin-top: 140px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .studio span{
+      display: block;
+      font-size: 12px;
+      color: #555;
+    }
+    .bottom-right{
+      bottom: 15px;
+      font-size: 20px;
+      font-weight: 400;
+      text-align: right;
+    }
+    .bottom-right .thin{ font-weight: 300; }
+    
+    .link{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;     /* 밑줄 제거 */
+      color: inherit;            /* 부모 색상 그대로 상속 */
+    }
+    .link:visited,
+    .link:hover,
+    .link:active
+    .link:focus{
+      text-decoration: none;
+      color: inherit;
+    }    
+}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- 좌측 상단 연락처 -->
+    <div class="left-top">
+      <div class="info-line">
+        <a href="https://naver.me/52RVQIiC"target="_blank" class="link">
+        <img src="icons/location.png" alt="location" class="icon">
+        시흥시 대은로104번길 26 1F
+      </a>
+      </div>
+      <div class="info-line">
+        <a href="mailto:diovdesign@gmail.com" class="link">
+        <img src="icons/email.png" alt="email" class="icon">
+        diovdesign@gmail.com
+      </a>
+      </div>
+      <div class="info-line">
+        <a href="phones/phone_DsgnP.vcf" download class="link">
+          <img src="icons/phone.png" alt="phone" class="icon">
+        010 9409 9626
+      </a>
+      </div>
+      <div class="info-line">
+       <a href="https://www.instagram.com/diov.kr/"target="_blank" class="link">
+        <img src="icons/insta.png" alt="instagram" class="icon">
+        diov.kr</a>
+      </div>
+    </div>
+
+    <!-- 회사명(국/영문) -->
+    <div class="studio">
+      디오브 디자인 스튜디오
+      <span>interior design studio</span>
+    </div>
+
+    <!-- 우측 상단 CEO -->
+    <div class="ceo">
+      c e o &nbsp;  | &nbsp; <b>Dae-young Kim</b>
+    </div>
+
+    <!-- 상단 브랜드(로고 + 카피) -->
+    <div class="bottom">
+      <img src="icons/logo.png" alt="D:OV 로고" class="logo-img">
+      <div class="desc">
+        The overture of your life begins with a new language of space,<br>
+        presenting the only experience and beautiful emotions.
+      </div>
+    </div>
+
+    <!-- 하단 중앙 타이틀 -->
+    <div class="bottom-right">
+      <normal>diov</normal> <span class="thin">design studio</span>
+    </div>
+  </div>
+</body>
+</html>
